@@ -1,9 +1,13 @@
-const { connect } = require('mongoose');
+const { connect, connection } = require('mongoose');
 
 // function to connect to mongodb
 const connectDB = async () => {
   await connect('mongodb://localhost/taskcli');
-  console.log('MongoDB Connected...');
 };
 
-module.exports = { connectDB };
+connection.on('error', (err) => {
+  console.log(err);
+  process.exit(1);
+});
+
+module.exports = { connectDB, connection };

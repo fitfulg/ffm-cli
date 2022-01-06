@@ -1,5 +1,6 @@
 const { program } = require('commander');
 const { prompt } = require('inquirer');
+const { addTask } = require('./controllers/task.controllers');
 
 program
   .version('0.0.1')
@@ -19,8 +20,7 @@ program.command('save').action(async () => {
       name: 'description',
     },
   ]);
-
-  console.log(answers);
+  await addTask(answers);
 });
 
 program.parse(process.argv);

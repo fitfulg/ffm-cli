@@ -1,5 +1,5 @@
 const { connectDB } = require('./db');
-// require('./commands');
+require('./commands');
 
 async function main() {
   await connectDB();
