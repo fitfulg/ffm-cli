@@ -42,4 +42,12 @@ program
   .alias('del')
   .action(async (_id) => removeTask(_id));
 
+//command: node src/commands.js update <id>
+program
+  .command('update <id>')
+  .alias('u')
+  .action(async (_id) => {
+    console.log(_id);
+  });
+
 program.parse(process.argv);
