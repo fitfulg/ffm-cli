@@ -10,7 +10,7 @@ program
   .version('0.0.1')
   .description('A simple command line tool to manage tasks');
 
-const taskQuestions = [
+const taskQuestion = [
   {
     type: 'input',
     message: 'What is the title of the task?',
@@ -28,13 +28,15 @@ program
   .command('save')
   .alias('s')
   .action(async () => {
-    const answers = await prompt(taskQuestions);
+    const answers = await prompt(taskQuestion);
     await addTask(answers);
   });
 
 //command: node src/commands.js list
-program.command('list');
-alias('ls').action(async () => await listTasks());
+program
+  .command('list')
+  .alias('ls')
+  .action(async () => await listTasks());
 
 //command: node src/commands.js delete <id>
 program
