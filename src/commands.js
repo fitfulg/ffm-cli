@@ -4,6 +4,7 @@ const {
   addTask,
   listTasks,
   removeTask,
+  updateTask,
 } = require('./controllers/task.controllers');
 
 program
@@ -49,7 +50,16 @@ program
   .command('update <id>')
   .alias('u')
   .action(async (_id) => {
-    console.log(_id);
+    if (!_id.match(/^[0-9a-fA-F]{24}$/)) {
+      console.error(
+        'error: provide a valid id. ' +
+          '\nCheck available ids with "node src/commands.js list"',
+      );
+      process.exit(1);
+    }
+
+    const answers = await prompt(taskQuestion);
+    await updateTask(_id, answers);
   });
 
 program.parse(process.argv);
