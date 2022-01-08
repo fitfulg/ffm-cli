@@ -41,13 +41,13 @@ const listTasks = async () => {
 const updateTask = async (_id, newTask) => {
   await Task.updateOne({ _id }, newTask);
   console.info('Task Updated');
-  exit();
+  exitProcess();
 };
 
 const removeTask = async (id) => {
   await Task.findByIdAndDelete(id);
   console.log('Task Deleted');
-  exit();
+  exitProcess();
 };
 
 module.exports = {

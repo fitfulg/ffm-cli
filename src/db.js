@@ -1,8 +1,10 @@
 const { connect, connection } = require('mongoose');
 
+const { MONGODB_URI } = require('./config');
+
 // function to connect to mongodb
 const connectDB = async () => {
-  await connect('mongodb://localhost/taskcli');
+  await connect(MONGODB_URI);
 };
 
 connection.on('error', (err) => {

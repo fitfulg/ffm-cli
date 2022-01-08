@@ -15,20 +15,20 @@ program
 const taskQuestion = [
   {
     type: 'input',
-    message: 'What is the title of the task?',
+    message: 'Task title:',
     name: 'title',
   },
   {
     type: 'input',
-    message: 'Task description',
+    message: 'Task description:',
     name: 'description',
   },
 ];
 
 //command: node src/commands.js save
 program
-  .command('save')
-  .alias('s')
+  .command('add')
+  .alias('a')
   .action(async () => {
     const answers = await prompt(taskQuestion);
     await addTask(answers);
