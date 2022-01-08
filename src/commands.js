@@ -5,6 +5,7 @@ const {
   listTasks,
   removeTask,
   updateTask,
+  findTasks,
 } = require('./controllers/task.controllers');
 
 program
@@ -60,6 +61,13 @@ program
 
     const answers = await prompt(taskQuestion);
     await updateTask(_id, answers);
+  });
+
+program
+  .command('find <tasks>')
+  .alias('f')
+  .action(async (text) => {
+    await findTasks(text);
   });
 
 program.parse(process.argv);

@@ -1,10 +1,29 @@
-const { connection } = require('../db');
 const Task = require('../models/Task');
+const { exitProcess } = require('../utils');
 
 const addTask = async (task) => {
   await Task.create(task);
   console.log('New Task Created');
-  await connection.close();
+  exitProcess();
+};
+
+const findTasks = async (word) => {
+  const search = new RegExp(word, 'i');
+  const tasks = await Task.find({
+    $or: [{ title: search }, { description: search }], // mongoDB $or operator
+  });
+  if (tasks.length === 0 || !tasks) {
+    console.log('No task found');
+    exitProcess();
+  } else {
+    console.table(
+      tasks.map((task) => ({
+        title: task.title,
+        description: task.description,
+      })),
+    );
+    exitProcess();
+  }
 };
 
 const listTasks = async () => {
@@ -16,21 +35,19 @@ const listTasks = async () => {
       description: task.description,
     })),
   );
-  await connection.close();
-  process.exit(0);
+  exitProcess();
 };
 
 const updateTask = async (_id, newTask) => {
   await Task.updateOne({ _id }, newTask);
   console.info('Task Updated');
-  await connection.close();
+  exit();
 };
 
 const removeTask = async (id) => {
   await Task.findByIdAndDelete(id);
   console.log('Task Deleted');
-  await connection.close();
-  process.exit(0);
+  exit();
 };
 
 module.exports = {
@@ -38,6 +55,5 @@ module.exports = {
   listTasks,
   removeTask,
   updateTask,
-  // findTask,
-  // listTasks,
+  findTasks,
 };
