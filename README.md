@@ -13,6 +13,7 @@ ffm a
 ```
 
 ![image info](./assets/sample2.jpg)
+For listing all your cheatsheets:
 
 ```
 ffm list
