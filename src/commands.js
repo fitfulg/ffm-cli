@@ -1,73 +1,73 @@
 const { program } = require('commander');
 const { prompt } = require('inquirer');
 const {
-  addTask,
-  listTasks,
-  removeTask,
-  updateTask,
-  findTasks,
-} = require('./controllers/task.controllers');
+  addCheatSheet,
+  findCheatSheet,
+  listCheatSheet,
+  removeCheatSheet,
+  updateCheatSheet,
+} = require('./controllers/cheatsheet.controllers');
 
 program
   .version('0.0.1')
-  .description('A simple command line tool to manage tasks');
+  .description('A simple command line tool to manage cheatsheets');
 
-const taskQuestion = [
+const csQuestion = [
   {
     type: 'input',
-    message: 'Task title:',
+    message: 'Cheatsheet title:',
     name: 'title',
   },
   {
     type: 'input',
-    message: 'Task description:',
+    message: 'Cheatsheet description:',
     name: 'description',
   },
 ];
 
-//command: node src/commands.js save
+//command: ffm add
 program
   .command('add')
   .alias('a')
   .action(async () => {
-    const answers = await prompt(taskQuestion);
-    await addTask(answers);
+    const answers = await prompt(csQuestion);
+    await addCheatSheet(answers);
   });
 
-//command: node src/commands.js list
+//command: ffm list
 program
   .command('list')
   .alias('ls')
-  .action(async () => await listTasks());
+  .action(async () => await listCheatSheet());
 
-//command: node src/commands.js delete <id>
+//command: ffm delete <id>
 program
   .command('delete <id>')
   .alias('del')
-  .action(async (_id) => removeTask(_id));
+  .action(async (_id) => removeCheatSheet(_id));
 
-//command: node src/commands.js update <id>
+//command: ffm update <id>
 program
   .command('update <id>')
   .alias('u')
   .action(async (_id) => {
     if (!_id.match(/^[0-9a-fA-F]{24}$/)) {
       console.error(
-        'error: provide a valid id. ' +
-          '\nCheck available ids with "node src/commands.js list"',
+        'error: provide a valid id. ' + '\nCheck available ids with "ffm list"',
       );
       process.exit(1);
     }
 
-    const answers = await prompt(taskQuestion);
-    await updateTask(_id, answers);
+    const answers = await prompt(csQuestion);
+    await updateCheatSheet(_id, answers);
   });
 
+//command: ffm find <text>
 program
-  .command('find <tasks>')
+  .command('find <CSheet>')
   .alias('f')
   .action(async (text) => {
-    await findTasks(text);
+    await findCheatSheet(text);
   });
 
 program.parse(process.argv);
