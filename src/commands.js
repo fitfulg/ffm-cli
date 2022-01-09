@@ -15,6 +15,11 @@ program
 const csQuestion = [
   {
     type: 'input',
+    message: 'Kind of cheatsheet (eg: java):',
+    name: 'kind',
+  },
+  {
+    type: 'input',
     message: 'Cheatsheet title:',
     name: 'title',
   },
@@ -22,6 +27,11 @@ const csQuestion = [
     type: 'input',
     message: 'Cheatsheet description:',
     name: 'description',
+  },
+  {
+    type: 'input',
+    message: 'Example of the output:',
+    name: 'example',
   },
 ];
 

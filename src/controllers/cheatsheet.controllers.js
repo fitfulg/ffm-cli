@@ -10,7 +10,12 @@ const addCheatSheet = async (csheet) => {
 const findCheatSheet = async (word) => {
   const search = new RegExp(word, 'i');
   const cSheets = await CheatSheet.find({
-    $or: [{ title: search }, { description: search }], // mongoDB $or operator
+    $or: [
+      { kind: search },
+      { title: search },
+      { description: search },
+      { example: search },
+    ], // mongoDB $or operator
   });
   if (cSheets.length === 0 || !cSheets) {
     console.log('No cheatsheet found');
@@ -18,8 +23,10 @@ const findCheatSheet = async (word) => {
   } else {
     console.table(
       cSheets.map((cs) => ({
+        kind: cs.kind,
         title: cs.title,
         description: cs.description,
+        example: cs.example,
       })),
     );
     exitProcess();
@@ -31,8 +38,10 @@ const listCheatSheet = async () => {
   console.table(
     cSheets.map((cs) => ({
       _id: cs._id.toString(),
+      kind: cs.kind,
       title: cs.title,
       description: cs.description,
+      example: cs.example,
     })),
   );
   exitProcess();
