@@ -1,6 +1,9 @@
 # Find For Me CLI
 
 This custom CLI let's you waste a little of your precious time to add some cheatsheet note of your favourite programming language.
+It later becomes a fast resource to find that forgoten cheatsheet by just typing some easy command insted of going to the browser and search for any docs or stackoverflow
+
+## Installation (in progress)
 
 ## Usage:
 
